@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Garima Singh"]
   s.email       = ["garima.slideshare@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{A gem that matches similar json and ignores order}
+  s.description = %{A gem that matches similar json and ignores order}
 
   s.rubyforge_project = "json_matcher"
 
