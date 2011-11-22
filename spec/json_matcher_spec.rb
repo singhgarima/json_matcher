@@ -43,4 +43,16 @@ describe JsonMatcher do
     expected = { :array_key => [3,2,1,4], :key => "value" }.to_json
     JsonMatcher.similar(actual, expected).should == "\e[31m\e[1mDiff:\n+{\"array_key\":[1,2,3]}\n-{\"array_key\":[3,2,1,4]}\e[0m\e[0m"
   end
+
+  it "should match if json with a hash with a array has different sort but exact value" do
+    actual = { :key => "value", :array_key => [1,2,3], :hash_key => { :normal_key => 1, :array_key => [4,5,6] }, :zkey => 9 }.to_json
+    expected = { :array_key => [3,2,1], :key => "value", :hash_key => { :array_key => [6,4,5], :normal_key => 1 }, :zkey =>9 }.to_json
+    JsonMatcher.similar(actual, expected).should be_nil
+  end
+
+  it "should not match if json with a hash with a array has different sort but exact value" do
+    actual = { :key => "value", :array_key => [1,2,3], :hash_key => { :normal_key => 1, :array_key => [4,5,6,7] } }.to_json
+    expected = { :array_key => [3,2,1], :key => "value", :hash_key => { :array_key => [6,4,5], :normal_key => 1 } }.to_json
+    JsonMatcher.similar(actual, expected).should == "\e[31m\e[1mDiff:\n+{\"array_key\":[4,5,6,7]}\n-{\"array_key\":[6,4,5]}\e[0m\e[0m"
+  end
 end
