@@ -55,4 +55,14 @@ describe JsonMatcher do
     expected = { :array_key => [3,2,1], :key => "value", :hash_key => { :array_key => [6,4,5], :normal_key => 1 } }.to_json
     JsonMatcher.similar(actual, expected).should == "\e[31m\e[1mDiff:\n+{\"array_key\":[4,5,6,7]}\n-{\"array_key\":[6,4,5]}\e[0m\e[0m"
   end
+
+  describe "options" do
+    describe "exact match" do
+      it "should just do exact match if option exact set to true" do
+        actual = { :key => "value", :extra_key => "value2", :another_key => "value3" }.to_json
+        expected = { :extra_key => "value2", :another_key => "value3", :key => "value" }.to_json
+        JsonMatcher.similar(actual, expected, {:exact => true}).should_not be_nil
+      end
+    end
+  end
 end

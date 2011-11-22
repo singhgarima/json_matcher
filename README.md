@@ -10,3 +10,12 @@ It gives the difference in diff format with colors
 JsonMatcher.similar a, b
 
 It returns nil if similar and a diff if different
+
+Check Spec section for details
+
+# Options
+
+The only option currently supported is exact
+eg JsonMatcher.similar a, b, {:exact => true}
+This makes the match exact
+
