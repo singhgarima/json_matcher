@@ -22,7 +22,7 @@ module JsonMatcher
     end
 
     def to_s
-      red { bold {"expected #{@expected.to_json},\ngot #{@actual.to_json}\nDiff:\n+#{@failure_msg[:extra].to_json}\n-#{@failure_msg[:less].to_json}" } }
+      red { bold {"Diff:\n+#{@failure_msg[:extra].to_json}\n-#{@failure_msg[:less].to_json}" } }
     end
 
     private
