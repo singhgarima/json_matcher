@@ -59,8 +59,8 @@ describe JsonMatcher do
   describe "options" do
     describe "exact match" do
       it "should just do exact match if option exact set to true" do
-        actual = { :key => "value", :extra_key => "value2", :another_key => "value3" }.to_json
-        expected = { :extra_key => "value2", :another_key => "value3", :key => "value" }.to_json
+        actual = "{\"key\":\"value\",\"extra_key\":\"value2\",\"another_key\":\"value3\"}"
+        expected = "{\"extra_key\":\"value2\",\"another_key\":\"value3\",\"key\":\"value\"}"
         JsonMatcher.similar(actual, expected, {:exact => true}).should_not be_nil
       end
     end

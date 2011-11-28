@@ -21,8 +21,7 @@ module JsonMatcher
     end
 
     def similar?
-
-      return @options[:exact] ? equal : equal_without_order
+      @options[:exact] ? equal : equal_without_order
     end
 
     def to_s
@@ -36,8 +35,8 @@ module JsonMatcher
 
     def equal_without_order
       return true if @actual_hash == @expected_hash
-      @failure_msg[:extra] = @actual_hash.select {|key,val| !@expected_hash.keys.include? key}
-      @failure_msg[:less] = @expected_hash.select {|key,val| !@actual_hash.keys.include? key}
+      @failure_msg[:extra] = get_failuer_if_extra_keys(@actual_hash, @expected_hash)
+      @failure_msg[:less] = get_failuer_if_extra_keys(@expected_hash, @actual_hash)
       hash_matcher @actual_hash, @expected_hash
       @failure_msg[:extra].length == 0 and @failure_msg[:less].length == 0
     end
@@ -60,6 +59,14 @@ module JsonMatcher
             end
           end
         end
+      end
+    end
+
+    def get_failuer_if_extra_keys first, second
+      first.inject({})  do |hash, key_value|
+        key, value = key_value
+        hash[key] = value unless second.keys.include?(key)
+        hash
       end
     end
 
